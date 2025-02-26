@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  version: 0.0.0
+  title: Stats service
+  description: Provides persistence of stats
+paths:
+  /courses/{courseId}:
+    post:
+      description: Persists a session study event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                sessionId:
+                  type: string
+                  format: uuid
+                totalModulesStudied:
+                  type: number
+                averageScore:
+                  type: number
+                timeStudied:
+                  type: number
+      parameters:
+        - in: header
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        201:
+          description: Created
+
+    get:
+      description: Fetches course lifetime stats
+      parameters:
+        - in: header
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Course lifetime stats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalModulesStudied:
+                    type: number
+                    description: The number of modules studied in the course
+                  averageScore:
+                    type: number
+                    description: The user's average score of modules across the course
+                  timeStudied:
+                    type: number
+                    description: The total time spent studying the course
+
+  /courses/{courseId}/sessions/{sessionId}:
+    get:
+      description: Fetches a single study session
+      parameters:
+        - in: header
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: sessionId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Session stats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    description: Identifies the session
+                    type: string
+                    format: uuid
+                  totalModulesStudied:
+                    type: number
+                    description: The number of modules studied in the session
+                  averageScore:
+                    type: number
+                    description: The user's average score of modules in the session
+                  timeStudied:
+                    type: number
+                    description: The total time spent in the session
