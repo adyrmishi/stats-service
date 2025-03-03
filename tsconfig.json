@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "types": ["node", "express", "jest"],
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
+}

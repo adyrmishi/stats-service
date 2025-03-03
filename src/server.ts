@@ -1,0 +1,38 @@
+import express, { Request, Response, NextFunction } from "express";
+import statsRoutes from "./routes/statsRoutes";
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+const checkUserIdInHeaders = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const userId = req.headers.userid;
+
+  if (!userId) {
+    res.status(400).json({ message: "userId is required in the headers" });
+    return;
+  }
+
+  next();
+};
+
+app.use(express.json());
+
+app.use("/courses", checkUserIdInHeaders, statsRoutes);
+
+app.use((err: Error, req: Request, res: Response) => {
+  console.error(err.stack);
+  res.status(500).json({
+    message: "Internal Server Error",
+    error: "An error occurred",
+  });
+});
+
+const server = app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+export { app, server };
