@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const dynamoDB = new DynamoDBClient({
-  region: process.env.AWS_DEFAULT_REGION,
+  region: process.env.AWS_DEFAULT_REGION || "eu-west-2",
   endpoint: process.env.DYNAMODB_ENDPOINT || "http://localhost:8000",
 });
 

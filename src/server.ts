@@ -24,7 +24,6 @@ app.use(express.json());
 app.use("/courses", checkUserIdInHeaders, statsRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  // ✅ Added `next`
   console.error(err.stack);
   res.status(500).json({
     message: "Internal Server Error",
