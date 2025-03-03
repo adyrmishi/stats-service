@@ -5,10 +5,14 @@ dotenv.config();
 
 const dynamoDB = new DynamoDBClient({
   region: process.env.AWS_DEFAULT_REGION || "eu-west-2",
-  endpoint:
+  credentials:
     process.env.NODE_ENV === "production"
       ? undefined
-      : process.env.DYNAMODB_ENDPOINT || "http://localhost:8000",
+      : {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID || "dummy-access-key",
+          secretAccessKey:
+            process.env.AWS_SECRET_ACCESS_KEY || "dummy-secret-key",
+        },
 });
 
 export default dynamoDB;

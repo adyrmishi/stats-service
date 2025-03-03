@@ -1,5 +1,6 @@
 import request from "supertest";
 import { app, server } from "../../src/server";
+import { v4 as uuidv4 } from "uuid";
 
 afterAll(() => {
   server.close();
@@ -7,11 +8,13 @@ afterAll(() => {
 
 describe("Stats API endpoints", () => {
   it("should create a session study event", async () => {
+    const uniqueSessionId = uuidv4();
+
     const response = await request(app)
       .post("/courses/course123")
-      .set("userid", "user123")
+      .set("userid", "user124")
       .send({
-        sessionId: "session1",
+        sessionId: uniqueSessionId,
         totalModulesStudied: 10,
         averageScore: 85,
         timeStudied: 120,
