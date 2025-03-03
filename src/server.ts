@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import statsRoutes from "./routes/statsRoutes";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 const checkUserIdInHeaders = (
   req: Request,
