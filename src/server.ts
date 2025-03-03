@@ -23,6 +23,10 @@ app.use(express.json());
 
 app.use("/courses", checkUserIdInHeaders, statsRoutes);
 
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ message: "Path not found" });
+});
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
@@ -32,7 +36,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Health check OK");
+  res.send("Server running");
 });
 
 const server = app.listen(port, () => {

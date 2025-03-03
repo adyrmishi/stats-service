@@ -97,6 +97,10 @@ class StatsService {
         averageScore: { N: averageScore.toString() },
         timeStudied: { N: timeStudied.toString() },
       },
+      ConditionExpression: "attribute_not_exists(#pk)",
+      ExpressionAttributeNames: {
+        "#pk": "courseId#sessionId",
+      },
     };
     await dynamoDB.send(new PutItemCommand(params));
 
