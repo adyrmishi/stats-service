@@ -20,7 +20,6 @@ const checkUserIdInHeaders = (req, res, next) => {
 app.use(express_1.default.json());
 app.use("/courses", checkUserIdInHeaders, statsRoutes_1.default);
 app.use((err, req, res, next) => {
-    // ✅ Added `next`
     console.error(err.stack);
     res.status(500).json({
         message: "Internal Server Error",
